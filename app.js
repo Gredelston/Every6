@@ -5,18 +5,13 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
+
 var index  = require('./routes/index');
+var models = require('./models/model-manager');
 
 var app = express();
 
-var eq_helper = function(thing1, thing2, options) {
-	if (thing1 === thing2) {
-		return options.fn(this);
-	} else {
-		console.log("("+thing1+","+thing2+")")
-	}
-}
-
+// Application settings
 app.engine('.hbs', exphbs({extname: '.hbs',
   defaultLayout: 'main',
   helpers: {'ifeq': eq_helper} }));
@@ -32,6 +27,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
+// Routes
 
 app.get('/', index.home);
 app.get('/login', index.login);
