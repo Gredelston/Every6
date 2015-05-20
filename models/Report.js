@@ -1,5 +1,5 @@
 var reportSchema = mongoose.Schema({
-  user: String,
+  user: Number,
   title: String,
   author: String,
   text: String,
