@@ -4,7 +4,21 @@
     <li class="navbar-item"><a href="/">Home</a></li>
     <li class="navbar-item"><a href="/">This Term</a></li>
     <li class="navbar-item"><a href="/">Past Terms</a></li>
-    <li class="navbar-item"><a href="/">About</a></li>
-    <li class="navbar-item"><a href="/auth">Sign In</a></li>
+    <li class="navbar-item"><a href="/getGoogleID">About</a></li>
+    <li class="navbar-item"><a href="/auth" id="navbar-auth"></a></li>
   </ul>
 </div>
+
+<script>
+	$(document).ready(function() {
+    console.log("Firing get request");
+		$.get('/getGoogleUser', function(data) {
+      console.log("DATA: ", data);
+      if (data) {
+  			$("#navbar-auth").text(data.displayName);
+      } else {
+        $("#navbar-auth").text("Sign in!");
+      }
+		});
+	});
+</script>

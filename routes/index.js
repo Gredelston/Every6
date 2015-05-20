@@ -8,13 +8,25 @@ var home = function(req, res) {
   res.render('home');
 };
 
+/**
+ * GET request to return the logged-in Google ID, if logged in.
+ */
+var getGoogleUser = function(req, res) {
+	console.log("getGoogleUser: ", req.user);
+	if (req.user) {
+		res.json(req.user);
+	} else {
+		res.end(null);
+	}
+}
 
-/* Callback URI for when the user is logged in. */
+/* Callback for a successful Google authentication. */
 var authSuccess = function(req, res) {
-  console.log("SUCCESSFUL SUCCESS!!!!", __dirname);
+  console.log("SUCCESSFUL SUCCESS!!!!");
   res.redirect('/');
 }
 
+/* Callback for a failed Google authentication. */
 var authFailure = function(req, res) {
   console.log("FAILURE TO FAIL!!!!!");
   res.redirect('/');
@@ -23,3 +35,4 @@ var authFailure = function(req, res) {
 module.exports.home = home;
 module.exports.authSuccess = authSuccess;
 module.exports.authFailure = authFailure;
+module.exports.getGoogleUser = getGoogleUser;

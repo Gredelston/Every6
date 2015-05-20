@@ -33,6 +33,7 @@ setupGoogleAuth(app);
 app.get('/', index.home);
 app.get('/auth/success', index.authSuccess);
 app.get('/auth/failure', index.authFailure);
+app.get('/getGoogleUser', index.getGoogleUser);
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
