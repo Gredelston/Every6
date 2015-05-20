@@ -12,9 +12,7 @@ var models = require('./models/model-manager');
 var app = express();
 
 // Application settings
-app.engine('.hbs', exphbs({extname: '.hbs',
-  defaultLayout: 'main',
-  helpers: {'ifeq': eq_helper} }));
+app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main' }));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));

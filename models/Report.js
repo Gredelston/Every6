@@ -1,3 +1,5 @@
+var mongoose = require('mongoose');
+
 var reportSchema = mongoose.Schema({
   user: Number,
   title: String,
@@ -6,6 +8,6 @@ var reportSchema = mongoose.Schema({
   submitted: Boolean
 });
 
-var Report = mongoose.model('Twote', twoteSchema);
+var Report = mongoose.model('Report', reportSchema);
 
 module.exports.Report = Report;

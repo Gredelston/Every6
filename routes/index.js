@@ -1,31 +1,11 @@
 var url = require('url');
 var path = require('path');
-var mg_models = require('./mg_models');
-
-var User = mg_models.User;
-var Twote = mg_models.Twote;
 
 // GET functions
 
 /* Renders the homepage (/) */
 var home = function(req, res) {
-  User.find({}, function(user_err, users) {
-    if (user_err) {
-      console.log("Error finding users", user_err);
-      return;
-    }
-
-    Twote.find({})
-      .sort({'_id':'desc'}  )
-      .exec(function(twote_err, twotes) {
-      if (twote_err) {
-        console.log("Error loading twotes", twote_err)
-      }
-      var sessionUser = req.session.user;
-      console.log(sessionUser);
-      res.render('home', {users: users, twotes: twotes, sessionUser: sessionUser});
-    });
-  });
+  res.render('home');
 };
 
 /* Renders /login */
