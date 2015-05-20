@@ -33,7 +33,10 @@ setupGoogleAuth(app);
 app.get('/', index.home);
 app.get('/auth/success', index.authSuccess);
 app.get('/auth/failure', index.authFailure);
+app.get('/logout', index.logout);
 app.get('/getGoogleUser', index.getGoogleUser);
+app.get('/logInOrOut', index.logInOrOut);
+app.get('/loggedInDisplay', index.loggedInDisplay);
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
