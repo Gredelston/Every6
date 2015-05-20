@@ -6,15 +6,11 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 
-var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth2').Strategy;
-
 var index  = require('./routes/index');
 var models = require('./models/model-manager');
+var setupGoogleAuth = require('./routes/googleAuth');
 
 var app = express();
-var appDir = path.dirname(require.main.filename);
-console.log(appDir);
 
 // Application settings
 app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main' }));
@@ -31,32 +27,17 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-// Google OAuth2 authentication
-var GOOGLE_CLIENT_ID = process.env.GOOGLE_KEY;
-var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_SECRET;
-passport.serializeUser(function(user, done) {
-	done(null, user);
-});
-passport.deserializeUser(function(user, done) {
-	done(null, user);
-});
-passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "/oauth2callback",
-    passReqToCallback: true
-  },
-  function(request, accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    var user = profile;
-    user.token = accessToken;
-	return done(null, user);
-  }
-));
-
+setupGoogleAuth(app);
 
 // Routes
 app.get('/', index.home);
+app.get('/auth/success', index.authSuccess);
+app.get('/auth/failure', index.authFailure);
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/getPlaylist');
+}
 
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
