@@ -32,32 +32,30 @@ app.use(session({
 }));
 
 // Google OAuth2 authentication
-// var GOOGLE_CLIENT_ID = 0;
-// var GOOGLE_CLIENT_SECRET = 0;
-// passport.serializeUser(function(user, done) {
-// 	done(null, user);
-// });
-// passport.deserializeUser(function(user, done) {
-// 	done(null, user);
-// });
-// passport.use(new SpotifyStrategy({
-//     clientID: GOOGLE_CLIENT_ID,
-//     clientSecret: GOOGLE_CLIENT_SECRET,
-//     callbackURL: path.dirname(require.main.filename) + "/authed"
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//     // User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
-//     //   return done(err, user);
-//     console.log(profile);
-//     var user = profile;
-//     user.token = accessToken;
-// 	return done(null, user);
-//   }
-// ));
+var GOOGLE_CLIENT_ID = process.env.GOOGLE_KEY;
+var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_SECRET;
+passport.serializeUser(function(user, done) {
+	done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+	done(null, user);
+});
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "/oauth2callback",
+    passReqToCallback: true
+  },
+  function(request, accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    var user = profile;
+    user.token = accessToken;
+	return done(null, user);
+  }
+));
+
 
 // Routes
-console.log("HNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNG");
-console.log(appDir);
 app.get('/', index.home);
 
 var PORT = process.env.PORT || 3000;
