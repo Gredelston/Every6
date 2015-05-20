@@ -9,7 +9,8 @@
     "express": "^4.11.2",
     "express-handlebars": "^1.1.0",
     "morgan": "^1.5.1",
-    "express-session": "^1.11.2"
+    "express-session": "^1.11.2",
+    "mongoose": "^4.0.3"
   },
   "devDependencies": {},
   "scripts": {
