@@ -29,14 +29,21 @@ app.use(session({
 
 setupGoogleAuth(app);
 
-// Routes
-app.get('/', index.home);
-app.get('/auth/success', index.authSuccess);
-app.get('/auth/failure', index.authFailure);
-app.get('/logout', index.logout);
-app.get('/getGoogleUser', index.getGoogleUser);
-app.get('/logInOrOut', index.logInOrOut);
+// Navigation routes
+app.get('/'           , index.home);
+app.get('/thisPeriod' , index.thisPeriod);
+app.get('/pastPeriods', index.pastPeriods);
+app.get('/about'      , index.about);
+app.get('/logInOrOut' , index.logInOrOut);
+
+// Authentication routes
+app.get('/auth/success'   , index.authSuccess);
+app.get('/auth/failure'   , index.authFailure);
 app.get('/loggedInDisplay', index.loggedInDisplay);
+app.get('/logout'         , index.logout);
+
+// Ajax routes
+app.get('/getGoogleUser', index.getGoogleUser);
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
