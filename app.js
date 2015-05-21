@@ -34,7 +34,10 @@ app.get('/'           , index.home);
 app.get('/thisPeriod' , index.thisPeriod);
 app.get('/pastPeriods', index.pastPeriods);
 app.get('/about'      , index.about);
+
 app.get('/logInOrOut' , index.logInOrOut);
+app.get('/signup'     , index.signup);
+app.get('/me'         , index.profileSettings);
 
 // Authentication routes
 app.get('/auth/success'   , index.authSuccess);

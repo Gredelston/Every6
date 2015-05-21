@@ -1,5 +1,6 @@
 var url = require('url');
 var path = require('path');
+var models = require('../models/model-manager');
 
 // Navigation routes
 
@@ -18,6 +19,14 @@ module.exports.pastPeriods = function(req, res) {
 
 module.exports.about = function(req, res) {
   res.render('about');
+}
+
+module.exports.signup = function(req, res) {
+  res.redirect('/');
+}
+
+module.exports.profileSettings = function(req, res) {
+  res.redirect('/');
 }
 
 /**
@@ -40,6 +49,59 @@ var getPeriodFromDate = function(date) {
 /* Return the current period. */
 var getCurrentPeriod = function() {
   return getPeriodFromDate(new Date());
+}
+
+var getUserFromGoogleID = function(id, successCallback, failCallback) {
+  models.User.find({googleID: googleID}, function(err, user) {
+    if (user) {
+      successCallback(user);
+    } else {
+      failCallback();
+    }
+  });
+};
+
+var createCurrentUser = function() {
+  if (!req.user) {
+    console.log("ERROR: Attempted to create user when not logged in!");
+    return null;
+  }
+  // Create the user
+  var newUser = new User({
+    googleID:    req.user.id,
+    firstname:   req.user.name.givenName,
+    lastname:    req.user.name.familyName,
+    displayname: req.user.displayName,
+    reports:     []
+  });
+  // Save + send
+  newUser.save(function(err) {
+    if (err) {
+      console.log("ERROR: Could not save new user!");
+      return null;
+    } else {
+      return newUser;
+    }
+  });
+}
+
+module.exports.getOrCreateCurrentUser = function(req, res) {
+  if (!req.user) {
+    // If client is not logged in, then return null.
+    res.end(null);
+  }
+  getUserFromGoogleID(req.user.id,
+    // Success callback function, for if a user already exists
+    function(user) { res.json(user); },
+    // Failure callback function, for if a user needs to be created
+    function() {
+      var newUser = createCurrentUser();
+      if (newUser) {
+        res.json(newUser);
+      } else {
+        res.error(500).send("ERROR: Could not create a new user!");
+      }
+    });
 }
 
 // Log in/out routes
