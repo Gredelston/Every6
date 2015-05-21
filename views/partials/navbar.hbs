@@ -1,12 +1,12 @@
 <div id="navbar">
-  <h1 id="logo">Every6</h1>
+  <a href="/" id="logo-link"><h1 id="logo">Every6</h1></a>
   <ul id="navbar-items">
     <li class="navbar-item"><a href="/">Home</a></li>
-    <li class="navbar-item"><a href="/">This Period</a></li>
-    <li class="navbar-item"><a href="/">Past Period</a></li>
-    <li class="navbar-item"><a href="/">About</a></li>
-    <li class="navbar-item"><a href="/logInOrOut" id="navbar-auth"></a></li>
+    <li class="navbar-item"><a href="/thisPeriod">This Period</a></li>
+    <li class="navbar-item"><a href="/pastPeriods">Past Periods</a></li>
+    <li class="navbar-item"><a href="/about">About</a></li>
   </ul>
+  <a href="/logInOrOut" id="navbar-auth"></a>
 </div>
 
 <script>
@@ -21,7 +21,7 @@
         });
       } else {
         $("#navbar-auth").html(
-          "<img src='images/google-login.png' height='26' />"
+          "<img src='images/google-login.png' id='login-image' height='35' />"
         );
       }
 		});

@@ -9,15 +9,15 @@ module.exports.home = function(req, res) {
 };
 
 module.exports.thisPeriod = function(req, res) {
-	res.render('home');
+	res.render('thisPeriod');
 }
 
 module.exports.pastPeriods = function(req, res) {
-	res.render('home');
+	res.render('pastPeriods');
 }
 
 module.exports.about = function(req, res) {
-	res.render('home');
+	res.render('about');
 }
 
 /**

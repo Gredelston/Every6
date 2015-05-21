@@ -14,9 +14,6 @@ body {
 	font-family: 'Rock Salt', cursive;
 }
 
-h1, h2 {
-	font-family: 'Lobster Two', cursive;
-}
 
 .twote {
 	font-size: 16px;
@@ -25,58 +22,6 @@ h1, h2 {
 .twote-text {
 	font-family: 'Indie Flower', cursive;
 	font-size: 24px;
-}
-
-/* NAVBAR */
-
-#navbar {
-	padding: 0.5%;
-	padding-bottom: 1%;
-	margin: 1%;
-	border-bottom: 1px solid;
-	border-color: gray;
-}
-
-#logo {
-	display: inline;
-	margin-right: 4%;
-}
-
-#navbar-items {
-	display: inline;
-}
-
-.navbar-item {
-	display: inline;
-	margin-left: 6%;
-	color: gray;
-	text-decoration: none;
-	font-size: 20px;
-}
-
-.navbar-item a {
-	color: gray;
-	text-decoration: none;
-}
-
-.navbar-item a:hover {
-	color: black;
-	text-decoration: underline;
-}
-
-#profile-image {
-	height: 50%;
-	position: relative;
-	overflow: hidden;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	-ms-border-radius: 50%;
-	-o-border-radius: 50%;
-	border-radius: 50%;
-}
-
-#profile-image, #profile-image-cropper {
-	display: inline;
 }
 
 /* FOOTER */
