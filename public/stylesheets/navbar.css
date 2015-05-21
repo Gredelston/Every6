@@ -9,7 +9,7 @@
 
 #logo {
 	display: inline;
-	margin-right: 4%;
+	margin-right: -2%;
 	color: #3498db;
 }
 
@@ -38,12 +38,12 @@
 	text-decoration: none;
 }
 
-#navbar a:hover {
+#navbar ul a:hover, #navbar #profile-text a:hover {
 	color: #3498db;
 	text-decoration: underline;
 }
 
-#navbar-auth {
+#navbar-profile {
 	position: absolute;
 	right: 5%;
 }
@@ -67,4 +67,9 @@
 
 #profile-image, #profile-image-cropper {
 	display: inline;
+}
+
+#profile-text {
+	display: inline;
+	font-size: 20px;
 }

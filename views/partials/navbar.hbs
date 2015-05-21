@@ -6,24 +6,24 @@
     <li class="navbar-item"><a href="/pastPeriods">Past Periods</a></li>
     <!--<li class="navbar-item"><a href="/about">About</a></li>-->
   </ul>
-  <a href="/logInOrOut" id="navbar-auth"></a>
+  <span href="/logInOrOut" id="navbar-profile"></span>
 </div>
 
 <script>
 	$(document).ready(function() {
-    console.log("Firing get request");
-		$.get('/getGoogleUser', function(data) {
-      console.log("DATA: ", data);
-
+    $.get('/getGoogleUser', function(data) {
+      
       if (data) {
         $.get('/loggedInDisplay', function(renderedHTML) {
-          $("#navbar-auth").html(renderedHTML);
+          $("#navbar-profile").html(renderedHTML);
         });
+
       } else {
-        $("#navbar-auth").html(
-          "<img src='images/google-login.png' id='login-image' height='35' />"
+        $("#navbar-profile").html(
+          "<a href='logInOrOut'><img src='images/google-login.png' id='login-image' height='35' /></a>"
         );
       }
+
 		});
 	});
 </script>
