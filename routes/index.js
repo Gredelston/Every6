@@ -28,7 +28,11 @@ module.exports.signupPage = function(req, res) {
   console.log(req.user.name.givenName);
   res.render('signup', {
     firstName: req.user.name.givenName,
-    email: "gredelston@gmail.com"});;
+    email: "gredelston@gmail.com"});
+}
+
+module.exports.signupSuccess = function(req, res) {
+  res.render('signupSuccess');
 }
 
 module.exports.profileSettings = function(req, res) {

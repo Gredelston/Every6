@@ -34,6 +34,7 @@ app.get('/'             , index.home);
 app.get('/thisPeriod'   , index.thisPeriod);
 app.get('/pastPeriods'  , index.pastPeriods);
 app.get('/about'        , index.about);
+app.get('/signupSuccess', index.signupSuccess);
 
 app.get('/signup'       , index.signupPage);
 app.get('/validateEmail', index.validateEmail)
