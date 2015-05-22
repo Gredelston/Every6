@@ -4,6 +4,8 @@ var userSchema = mongoose.Schema({
 	googleID: Number,
   firstname: String,
   lastname: String,
+  displayname: String,
+  email: String,
   reports: [Number]
 });
 

@@ -1,0 +1,71 @@
+<center>
+  <h1>
+    Hi, {{firstName}}!
+  </h1>
+  <h2>
+    It looks like you're new here.
+  </h2>
+
+  <div id="signupBlurb">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Every6 is a tool to ensure our long-term growth and learning,
+    <br />
+    in the manner suggested by President Richard Miller to Olin Class of 2015.
+    <br /> <br />
+
+    Namely, your assignment is to read a <b>non-fiction</b> book every six months,
+    <br />
+    preferably one <b>outside of your field of expertise</b>,
+    and write a reflection on it.
+    <br /><br />
+
+    Your friends (that's us) will be able to read your reflections,
+    <br />
+    which allows us to stay <b>accountable</b>,
+    and besides that, keeps us <b>connected</b>.
+    <br /><br />
+
+    Every6 allows you to keep up with everyone else's reflections,<br />
+    and sends you occasional emails to keep you accountable
+  </div>
+
+  <h3>
+    Sound good? Confirm your email and get started!
+  </h3>
+
+  <form id="signup-form">
+    <input id="signup-email-field" type="text" value="{{email}}">
+    <input id="signup-submit-field" type="submit" value="Sign up!">
+  </form>
+</center>
+
+
+<script>
+  $(document).ready(function() {
+
+    // When the SUBMIT button is pressed, sign up the user.
+    $('#signup-form').submit(function(event) {
+      event.preventDefault();
+      var email = $('#signup-email-field')[0].value.trim();
+
+      // GET request to check that the supplied email is valid.
+      $.get('/validateEmail', {email: email})
+        .done(function(validated, status) {
+          if (validated !== 'true') { // I wish I could send a boolean
+            alert("Please input a valid email address.");
+            return;
+          }
+
+          // POST request to create the user
+          $.post('/createUser', {email: email})
+            .done(function(success, status) {
+              if (success !== 'true') { // I still wish I could send a boolean
+                alert("Something went screwy, Louie!");
+                return;
+              }
+              window.location.href = "/";
+            });
+        });
+    });
+  });
+</script>

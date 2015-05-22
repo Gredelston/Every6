@@ -21,13 +21,21 @@ module.exports.about = function(req, res) {
   res.render('about');
 }
 
-module.exports.signup = function(req, res) {
-  res.redirect('/');
+module.exports.signupPage = function(req, res) {
+  if (!req.user) {
+    res.redirect('/');
+  }
+  console.log(req.user.name.givenName);
+  res.render('signup', {
+    firstName: req.user.name.givenName,
+    email: "gredelston@gmail.com"});;
 }
 
 module.exports.profileSettings = function(req, res) {
   res.redirect('/');
 }
+
+// Utility functions
 
 /**
  * Given a Date() object, return the Period # since the start.
@@ -46,14 +54,13 @@ var getPeriodFromDate = function(date) {
   return period;
 }
 
-/* Return the current period. */
 var getCurrentPeriod = function() {
   return getPeriodFromDate(new Date());
 }
 
-var getUserFromGoogleID = function(id, successCallback, failCallback) {
-  models.User.find({googleID: googleID}, function(err, user) {
-    if (user) {
+var getUserFromGoogleID = function(googleID, successCallback, failCallback) {
+  models.User.findOne({googleID: googleID}, function(err, user) {
+    if (user!==null) {
       successCallback(user);
     } else {
       failCallback();
@@ -61,50 +68,41 @@ var getUserFromGoogleID = function(id, successCallback, failCallback) {
   });
 };
 
-var createCurrentUser = function() {
+// Log in/out routes
+
+/* Stolen from http://stackoverflow.com/q/46155/ */
+module.exports.validateEmail = function(req, res) {
+  var email = req.query.email;
+  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+  res.end(String(re.test(email)));
+}
+
+/**
+ * POST request called to create a new user account.
+ * Return "true" iff the user was successfully signed up,
+ */
+module.exports.createUser = function(req, res) {
   if (!req.user) {
-    console.log("ERROR: Attempted to create user when not logged in!");
-    return null;
+    res.error(500).send("Something went wrong! User not logged in");
   }
   // Create the user
-  var newUser = new User({
+  var newUser = new models.User({
     googleID:    req.user.id,
     firstname:   req.user.name.givenName,
     lastname:    req.user.name.familyName,
     displayname: req.user.displayName,
+    email:       req.body.email,
     reports:     []
   });
   // Save + send
   newUser.save(function(err) {
     if (err) {
-      console.log("ERROR: Could not save new user!");
-      return null;
+      res.error(500).send("Something went wrong! Could not save user");
     } else {
-      return newUser;
+      res.end("true");
     }
   });
 }
-
-module.exports.getOrCreateCurrentUser = function(req, res) {
-  if (!req.user) {
-    // If client is not logged in, then return null.
-    res.end(null);
-  }
-  getUserFromGoogleID(req.user.id,
-    // Success callback function, for if a user already exists
-    function(user) { res.json(user); },
-    // Failure callback function, for if a user needs to be created
-    function() {
-      var newUser = createCurrentUser();
-      if (newUser) {
-        res.json(newUser);
-      } else {
-        res.error(500).send("ERROR: Could not create a new user!");
-      }
-    });
-}
-
-// Log in/out routes
 
 /* GET request to return the logged-in Google ID, if logged in. */
 module.exports.getGoogleUser = function(req, res) {
@@ -143,12 +141,19 @@ module.exports.loggedInDisplay = function(req, res) {
 
 /* Callback for a successful Google authentication. */
 module.exports.authSuccess = function(req, res) {
-  console.log("SUCCESSFUL SUCCESS!!!!");
-  res.redirect('/');
+  getUserFromGoogleID(req.user.id,
+    function(user) {
+      console.log("Auth success, found user");
+      res.redirect('/');
+    }, function() {
+      console.log("Auth success, found no user");
+      res.redirect('/signup');
+    }
+  );
 }
 
 /* Callback for a failed Google authentication. */
 module.exports.authFailure = function(req, res) {
-  console.log("FAILURE TO FAIL!!!!!");
+  console.log("Failed to authenticate user via Google OAuth2.");
   res.redirect('/');
 }
