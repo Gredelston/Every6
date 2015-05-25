@@ -49,12 +49,19 @@ module.exports.profileSettings = function(req, res) {
 module.exports.viewReflection = function(req, res) {
   var reflectionID;
   if (req.params.id) {
-    reflectionID = reflectionID;
-    console.log(reflectionID);
-    res.render('home');
+    reflectionID = req.params.id;
+    console.log("ID: ", reflectionID);
+    models.Report.findOne({_id: reflectionID}, function(err, report) {
+      if (err) {
+        res.error(500).send("Something went wrong in querying the database!");
+      } else if (report) {
+        res.render('viewReflection', {reflection: report});
+      } else {
+        res.render('viewReflectionError')
+      }
+    });
   } else {
-    console.log("No ID found!");
-    res.render('home');
+    res.error(500).send("No ID found!");
   }
 }
 
