@@ -2,6 +2,8 @@ var url = require('url');
 var path = require('path');
 var models = require('../models/model-manager');
 
+var isLoggedIn = function(req) { return req.user; }
+
 // Navigation routes
 
 /* Renders the homepage (/) */
@@ -10,7 +12,11 @@ module.exports.home = function(req, res) {
 };
 
 module.exports.you = function(req, res) {
-  res.render('you');
+  if (isLoggedIn(req)) {
+    res.render('you');
+  } else {
+    res.render('youLoggedOut');
+  }
 }
 
 module.exports.browse = function(req, res) {
