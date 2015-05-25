@@ -46,6 +46,18 @@ module.exports.profileSettings = function(req, res) {
   res.redirect('/');
 }
 
+module.exports.viewReflection = function(req, res) {
+  var reflectionID;
+  if (req.params.id) {
+    reflectionID = reflectionID;
+    console.log(reflectionID);
+    res.render('home');
+  } else {
+    console.log("No ID found!");
+    res.render('home');
+  }
+}
+
 // Utility functions
 
 /**

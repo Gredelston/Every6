@@ -36,6 +36,7 @@ app.get('/you'           , index.you);
 app.get('/browse'        , index.browse);
 app.get('/about'         , index.about);
 app.get('/signupSuccess' , index.signupSuccess);
+app.get('/reflection/:id', index.viewReflection);
 
 app.get('/signup'        , index.signupPage);
 app.get('/validateEmail' , index.validateEmail)
