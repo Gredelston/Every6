@@ -55,7 +55,9 @@ module.exports.viewReflection = function(req, res) {
       if (err) {
         res.error(500).send("Something went wrong in querying the database!");
       } else if (report) {
-        res.render('viewReflection', {reflection: report});
+        queries.userByGoogleID(report.user, function(user) {
+          res.render('viewReflection', {reflection: report, user: user});
+        });
       } else {
         res.render('viewReflectionError')
       }

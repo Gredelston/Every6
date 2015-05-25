@@ -1,1 +1,21 @@
-This is where the reflection goes! {{reflection}}
+<h1>{{reflection.title}}</h1>
+<h3>Reflection by {{user.displayname}}</h2>
+
+{{reflection.text}}
+
+<br />
+{{#if reflection.submitted}}
+  <h6>
+    (Submitted on
+    <span id="submissionTime">{{reflection.submissionTime}}</span>)
+  </h6>
+{{/if}}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var d = new Date("{{reflection.submissionTime}}");
+    $('#submissionTime').html(
+      d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
+    );
+  });
+</script>
