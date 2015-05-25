@@ -18,7 +18,7 @@
 }
 
 #logo:hover {
-	text-decoration: underline
+	text-decoration: underline;
 }
 
 #navbar-items {
@@ -39,7 +39,7 @@
 }
 
 #navbar ul a:hover, #navbar #profile-text a:hover {
-	color: #3498db;
+	color: #c0392b;
 	text-decoration: underline;
 }
 
