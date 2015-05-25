@@ -1,6 +1,7 @@
 var url = require('url');
 var path = require('path');
 var models = require('../models/model-manager');
+var utils = require('./utils');
 
 var isLoggedIn = function(req) { return req.user; }
 
@@ -67,22 +68,6 @@ var getPeriodFromDate = function(date) {
 var getCurrentPeriod = function() {
   return getPeriodFromDate(new Date());
 }
-
-/**
- * Searches for a Mongo User document by a Google ID,
- * and fires a callback function depending on whether a user was found.
- * Success callback takes one argument (the User document);
- * failure callback takes no arguments.
- */
-var getUserFromGoogleID = function(googleID, successCallback, failCallback) {
-  models.User.findOne({googleID: googleID}, function(err, user) {
-    if (user!==null) {
-      successCallback(user);
-    } else {
-      failCallback();
-    }
-  });
-};
 
 // Log in/out routes
 
@@ -153,7 +138,7 @@ module.exports.loggedInDisplay = function(req, res) {
 
 /* Callback for a successful Google authentication. */
 module.exports.authSuccess = function(req, res) {
-  getUserFromGoogleID(req.user.id,
+  utils.getUserFromGoogleID(req.user.id,
     function(user) {
       console.log("Auth success, found user");
       res.redirect('/');

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 
 var index  = require('./routes/index');
-var userInfo = requre('./routes/userInfo');
+var userInfo = require('./routes/userInfo');
 var models = require('./models/model-manager');
 var setupGoogleAuth = require('./routes/googleAuth');
 
