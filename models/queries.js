@@ -6,7 +6,7 @@ var models = require('../models/model-manager');
  * Success callback takes one argument (the User document);
  * failure callback takes no arguments.
  */
-module.exports.getUserFromGoogleID = function(googleID, successCallback, failCallback) {
+module.exports.userByGoogleID = function(googleID, successCallback, failCallback) {
   models.User.findOne({googleID: googleID}, function(err, user) {
     if (user!==null) {
       successCallback(user);
@@ -18,7 +18,7 @@ module.exports.getUserFromGoogleID = function(googleID, successCallback, failCal
 
 /* GET route to return what a particular user is reading right now */
 module.exports.readingByGoogleID = function(googleID, callback) {
-  module.exports.getUserFromGoogleID(googleID,
+  module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
       callback(user.reading);
     }, function() { // Could not find user
@@ -29,7 +29,7 @@ module.exports.readingByGoogleID = function(googleID, callback) {
 
 /* Retrieve a particular user's previous reports, and call back. */
 module.exports.reportsByGoogleID = function(googleID, callback) {
-  module.exports.getUserFromGoogleID(googleID,
+  module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
       reportsFromIDs(user.reports, function(reports) {
         callback(reports);

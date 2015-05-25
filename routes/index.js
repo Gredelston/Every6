@@ -1,7 +1,7 @@
 var url = require('url');
 var path = require('path');
 var models = require('../models/model-manager');
-var utils = require('./utils');
+var queries = require('../models/queries');
 
 var isLoggedIn = function(req) { return req.user; }
 
@@ -138,7 +138,7 @@ module.exports.loggedInDisplay = function(req, res) {
 
 /* Callback for a successful Google authentication. */
 module.exports.authSuccess = function(req, res) {
-  utils.getUserFromGoogleID(req.user.id,
+  queries.userByGoogleID(req.user.id,
     function(user) {
       console.log("Auth success, found user");
       res.redirect(req.headers.referer);
