@@ -152,5 +152,5 @@ module.exports.authSuccess = function(req, res) {
 /* Callback for a failed Google authentication. */
 module.exports.authFailure = function(req, res) {
   console.log("Failed to authenticate user via Google OAuth2.");
-  res.redirect('/');
+  res.redirect('req.headers.referer');
 }
