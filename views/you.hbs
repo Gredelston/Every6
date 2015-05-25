@@ -6,15 +6,17 @@
 
 <div id="yourPastReflections">
   <h2>
-    This is where your past reflections will go.
+    Your Previous Reflections
   </h2>
+  <ul id="yourReflections">
+    {{#each reflections}}
+      {{> reflectionLink}}
+    {{/each}}
+  </ul>
 </div>
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $.get("myReflections", function(data) {
-      console.log('Your reflections: ', data);
-    });
     $.get("whatAmIReading", function(data) {
       console.log("You are reading: ", data);
     });

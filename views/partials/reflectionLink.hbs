@@ -1,0 +1,22 @@
+<li>
+  <a href="/reflection/{{this._id}}">{{this.title}}</a>
+  {{#if this.submitted}}
+    (Submitted on
+    <span id="{{this._id}}_submissionTime">
+      {{this.submissionTime}}
+    </span>)
+  {{/if}}
+</li>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    if ({{this.submitted}}) {
+      var d = new Date("{{this.submissionTime}}");
+      $("#{{this._id}}_submissionTime").html(
+        d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
+      );
+    }
+  });
+
+</script>

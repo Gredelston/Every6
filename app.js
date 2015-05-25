@@ -46,7 +46,7 @@ app.post('/createUser'   , index.createUser);
 app.get('/whatAmIReading'         , userInfo.whatAmIReading);
 app.get('/myReflections'          , userInfo.myReflections);
 app.get('/readingByGoogleID'      , userInfo.readingByGoogleID);
-app.get('/reflectionsByGoogleID' , userInfo.reflectionsByGoogleID);
+app.get('/reflectionsByGoogleID'  , userInfo.reflectionsByGoogleID);
 
 // Authentication routes
 app.get('/auth/success'    , index.authSuccess);

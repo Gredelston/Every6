@@ -14,7 +14,10 @@ module.exports.home = function(req, res) {
 
 module.exports.you = function(req, res) {
   if (isLoggedIn(req)) {
-    res.render('you');
+    queries.reflectionsByGoogleID(req.user.id, function(refs) {
+      console.log(refs);
+      res.render('you', {reflections: refs});
+    })
   } else {
     res.render('youLoggedOut');
   }
