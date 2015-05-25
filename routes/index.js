@@ -28,7 +28,7 @@ module.exports.signupPage = function(req, res) {
   console.log(req.user.name.givenName);
   res.render('signup', {
     firstName: req.user.name.givenName,
-    email: "gredelston@gmail.com"});
+    email: req.user.emails[0].value});
 }
 
 module.exports.signupSuccess = function(req, res) {
