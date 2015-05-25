@@ -29,11 +29,17 @@ module.exports.readingByGoogleID = function(googleID, callback) {
   );
 }
 
-/* Retrieve a particular user's previous reflections, and call back. */
+/**
+ * Retrieve a particular user's previous reflections, and call back.
+ * Sort the reflections descendingly in order of time written,
+ * so that the most recent reflection is at the front of the list.
+ */
+
 module.exports.reflectionsByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
       reflectionsFromIDs(user.reflections, function(reflections) {
+        reflections.sort(function(a, b) { return (a._id < b._id) });
         callback(reflections);
       });
     }, function() { // If could not find user,
