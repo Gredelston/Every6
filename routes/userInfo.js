@@ -37,8 +37,6 @@ module.exports.whatAmIReading = function(req, res) {
   var googleID = req.user.id;
   utils.getUserFromGoogleID(googleID,
     function(user) { // Successfully found user
-      console.log("FOUND A USER");
-      console.log(user);
       res.end(user.reading);
     }, function() { // Could not find user
       res.error(500).send("ERR: Could not find user");
@@ -73,11 +71,11 @@ var reportsFromIDs = function(ids, finishedCallback, reports) {
   } else { // Recursive case: Find a report
     var id = ids[0]; // Pull the id from the beginning
     var remainingIds = ids.slice(1); // and shorten the ids list
-    models.User.findByID(id, function(err, report) {
+    models.Report.findOne({_id: id}, function(err, report) {
       if (err) {
         console.log("ERR: Could not retrieve report from database");
       }
-      reports.push(reports); // Push the report to the end
+      reports.push(report); // Push the report to the end
       reportsFromIDs(remainingIds, finishedCallback, reports); // and recurse.
     })
   }
