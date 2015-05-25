@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-	googleID: Number,
+	googleID: String,
   firstname: String,
   lastname: String,
   displayname: String,
+  reading: String,
   email: String,
-  reports: [Number]
+  reports: [String]
 });
 
 var User = mongoose.model('User', userSchema);

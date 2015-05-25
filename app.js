@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 
 var index  = require('./routes/index');
+var userInfo = requre('./routes/userInfo');
 var models = require('./models/model-manager');
 var setupGoogleAuth = require('./routes/googleAuth');
 
@@ -41,11 +42,14 @@ app.get('/validateEmail' , index.validateEmail)
 app.get('/settings'      , index.profileSettings);
 app.post('/createUser'   , index.createUser);
 
+app.get('/readingByGoogleID' , userInfo.readingByGoogleID);
+app.get('/whatAmIReading'    , userInfo.whatAmIReading);
+
 // Authentication routes
-app.get('/auth/success'   , index.authSuccess);
-app.get('/auth/failure'   , index.authFailure);
-app.get('/loggedInDisplay', index.loggedInDisplay);
-app.get('/logout'         , index.logout);
+app.get('/auth/success'    , index.authSuccess);
+app.get('/auth/failure'    , index.authFailure);
+app.get('/loggedInDisplay' , index.loggedInDisplay);
+app.get('/logout'          , index.logout);
 
 // Ajax routes
 app.get('/getGoogleUser', index.getGoogleUser);

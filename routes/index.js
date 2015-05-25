@@ -68,6 +68,12 @@ var getCurrentPeriod = function() {
   return getPeriodFromDate(new Date());
 }
 
+/**
+ * Searches for a Mongo User document by a Google ID,
+ * and fires a callback function depending on whether a user was found.
+ * Success callback takes one argument (the User document);
+ * failure callback takes no arguments.
+ */
 var getUserFromGoogleID = function(googleID, successCallback, failCallback) {
   models.User.findOne({googleID: googleID}, function(err, user) {
     if (user!==null) {
@@ -80,7 +86,11 @@ var getUserFromGoogleID = function(googleID, successCallback, failCallback) {
 
 // Log in/out routes
 
-/* Stolen from http://stackoverflow.com/q/46155/ */
+/**
+ * GET request to determine whether an email address is valid.
+ * Returns "true" iff the email is valid; otherwise "false".
+ * Stolen from http://stackoverflow.com/q/46155/
+ */
 module.exports.validateEmail = function(req, res) {
   var email = req.query.email;
   var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -102,6 +112,7 @@ module.exports.createUser = function(req, res) {
     lastname:    req.user.name.familyName,
     displayname: req.user.displayName,
     email:       req.body.email,
+    reading:     null,
     reports:     []
   });
   // Save + send
@@ -121,15 +132,6 @@ module.exports.getGoogleUser = function(req, res) {
     res.json(req.user);
   } else {
     res.end(null);
-  }
-}
-
-/* If logged in, log out. Otherwise, log in. */
-module.exports.logInOrOut = function(req, res) {
-  if (req.user) {
-    res.redirect('/logout');
-  } else {
-    res.redirect('/auth');
   }
 }
 

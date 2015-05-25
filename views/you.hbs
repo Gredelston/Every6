@@ -1,7 +1,20 @@
-<button id="testButton">Click here!</button>
+<div id="haveYouCommitted">
+  <h2>
+    It looks like you're not already reading something!
+  </h2>
+</div>
+
+<div id="yourPastReports">
+  <h2>
+    This is where your past reports will go.
+  </h2>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function() {
-    console.log('sup');
-  })
+    console.log("READY");
+    $.get("whatAmIReading", function(data) {
+      console.log('READING DATA: ', data);
+    });
+  });
 </script>

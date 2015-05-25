@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var reportSchema = mongoose.Schema({
-  user: Number,
+  user: String,
   period: Number,
   title: String,
   author: String,
