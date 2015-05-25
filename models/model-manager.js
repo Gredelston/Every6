@@ -10,5 +10,5 @@ db.once('open', function (callback) {
   console.log('Successfully opened mongo database: ', mongoURI);
 });
 
-module.exports.Report = require('./Report.js');
+module.exports.Reflection = require('./Reflection.js');
 module.exports.User = require('./User.js')

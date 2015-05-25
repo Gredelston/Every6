@@ -13,11 +13,11 @@ module.exports.whatAmIReading = function(req, res) {
   });
 }
 
-/* GET route to return the logged-in user's previous reports */
-module.exports.myReports = function(req, res) {
+/* GET route to return the logged-in user's previous reflections */
+module.exports.myReflections = function(req, res) {
   var googleID = req.user.id;
-  queries.reportsByGoogleID(googleID, function(reports) {
-    res.json(reports);
+  queries.reflectionsByGoogleID(googleID, function(reflections) {
+    res.json(reflections);
   });
 }
 
@@ -30,10 +30,10 @@ module.exports.readingByGoogleID = function(req, res) {
   });
 }
 
-/* GET route to return what a particular user's previous reports */
-module.exports.reportsByGoogleID = function(req, res) {
+/* GET route to return what a particular user's previous reflections */
+module.exports.reflectionsByGoogleID = function(req, res) {
   var googleID = req.query.googleID;
-  queries.reportsByGoogleID(googleID, function(reports) {
-    res.json(reports);
+  queries.reflectionsByGoogleID(googleID, function(reflections) {
+    res.json(reflections);
   });
 }

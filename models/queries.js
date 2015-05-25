@@ -29,12 +29,12 @@ module.exports.readingByGoogleID = function(googleID, callback) {
   );
 }
 
-/* Retrieve a particular user's previous reports, and call back. */
-module.exports.reportsByGoogleID = function(googleID, callback) {
+/* Retrieve a particular user's previous reflections, and call back. */
+module.exports.reflectionsByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
-      reportsFromIDs(user.reports, function(reports) {
-        callback(reports);
+      reflectionsFromIDs(user.reflections, function(reflections) {
+        callback(reflections);
       });
     }, function() { // If could not find user,
       callback([]); // then frown.
@@ -43,27 +43,27 @@ module.exports.reportsByGoogleID = function(googleID, callback) {
 }
 
 /**
- * Recursively finds a list of Mongo Report documents,
+ * Recursively finds a list of Mongo Reflection documents,
  * given their Mongo IDs.
  * When finished, executes a callback function,
- * which takes as a parameter an array of reports,
+ * which takes as a parameter an array of reflections,
  * in the same order as the supplied ids argument.
- * The parameter "reports" is optional and should not be included
+ * The parameter "reflections" is optional and should not be included
  * when the function is originally called.
  */
-var reportsFromIDs = function(ids, finishedCallback, reports) {
-  if (!reports) { reports = []; } // reports is an optional param
+var reflectionsFromIDs = function(ids, finishedCallback, reflections) {
+  if (!reflections) { reflections = []; } // reflections is an optional param
   if (!ids.length) { // Base case: callback
-    finishedCallback(reports);
-  } else { // Recursive case: Find a report
+    finishedCallback(reflections);
+  } else { // Recursive case: Find a reflection
     var id = ids[0]; // Pull the id from the beginning
     var remainingIds = ids.slice(1); // and shorten the ids list
-    models.Report.findOne({_id: id}, function(err, report) {
+    models.Reflection.findOne({_id: id}, function(err, reflection) {
       if (err) {
-        console.log("ERR: Could not retrieve report from database");
+        console.log("ERR: Could not retrieve reflection from database");
       }
-      reports.push(report); // Push the report to the end
-      reportsFromIDs(remainingIds, finishedCallback, reports); // and recurse.
+      reflections.push(reflection); // Push the reflection to the end
+      reflectionsFromIDs(remainingIds, finishedCallback, reflections);
     })
   }
 }

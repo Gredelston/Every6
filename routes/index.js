@@ -51,12 +51,12 @@ module.exports.viewReflection = function(req, res) {
   if (req.params.id) {
     reflectionID = req.params.id;
     console.log("ID: ", reflectionID);
-    models.Report.findOne({_id: reflectionID}, function(err, report) {
+    models.Reflection.findOne({_id: reflectionID}, function(err, reflection) {
       if (err) {
         res.error(500).send("Something went wrong in querying the database!");
-      } else if (report) {
-        queries.userByGoogleID(report.user, function(user) {
-          res.render('viewReflection', {reflection: report, user: user});
+      } else if (reflection) {
+        queries.userByGoogleID(reflection.user, function(user) {
+          res.render('viewReflection', {reflection: reflection, user: user});
         });
       } else {
         res.render('viewReflectionError')
@@ -119,7 +119,7 @@ module.exports.createUser = function(req, res) {
     displayname: req.user.displayName,
     email:       req.body.email,
     reading:     null,
-    reports:     []
+    reflections:     []
   });
   // Save + send
   newUser.save(function(err) {

@@ -43,10 +43,10 @@ app.get('/validateEmail' , index.validateEmail)
 app.get('/settings'      , index.profileSettings);
 app.post('/createUser'   , index.createUser);
 
-app.get('/whatAmIReading'    , userInfo.whatAmIReading);
-app.get('/myReports'         , userInfo.myReports);
-app.get('/readingByGoogleID' , userInfo.readingByGoogleID);
-app.get('/reportsByGoogleID' , userInfo.reportsByGoogleID);
+app.get('/whatAmIReading'         , userInfo.whatAmIReading);
+app.get('/myReflections'          , userInfo.myReflections);
+app.get('/readingByGoogleID'      , userInfo.readingByGoogleID);
+app.get('/reflectionsByGoogleID' , userInfo.reflectionsByGoogleID);
 
 // Authentication routes
 app.get('/auth/success'    , index.authSuccess);

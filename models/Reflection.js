@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var reportSchema = mongoose.Schema({
+var reflectionSchema = mongoose.Schema({
   user: String,
   period: Number,
   title: String,
@@ -10,6 +10,6 @@ var reportSchema = mongoose.Schema({
   submissionTime: Date
 });
 
-var Report = mongoose.model('Report', reportSchema);
+var Reflection = mongoose.model('Reflection', reflectionSchema);
 
-module.exports = Report;
+module.exports = Reflection;

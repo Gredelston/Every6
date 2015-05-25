@@ -4,16 +4,16 @@
   </h2>
 </div>
 
-<div id="yourPastReports">
+<div id="yourPastReflections">
   <h2>
-    This is where your past reports will go.
+    This is where your past reflections will go.
   </h2>
 </div>
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $.get("myReports", function(data) {
-      console.log('Your reports: ', data);
+    $.get("myReflections", function(data) {
+      console.log('Your reflections: ', data);
     });
     $.get("whatAmIReading", function(data) {
       console.log("You are reading: ", data);
