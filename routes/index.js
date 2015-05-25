@@ -9,12 +9,12 @@ module.exports.home = function(req, res) {
   res.render('home', {title: 'test'});
 };
 
-module.exports.thisPeriod = function(req, res) {
-  res.render('thisPeriod');
+module.exports.you = function(req, res) {
+  res.render('you');
 }
 
-module.exports.pastPeriods = function(req, res) {
-  res.render('pastPeriods');
+module.exports.browse = function(req, res) {
+  res.render('browse');
 }
 
 module.exports.about = function(req, res) {
