@@ -141,7 +141,7 @@ module.exports.authSuccess = function(req, res) {
   utils.getUserFromGoogleID(req.user.id,
     function(user) {
       console.log("Auth success, found user");
-      res.redirect('/');
+      res.redirect(req.headers.referer);
     }, function() {
       console.log("Auth success, found no user");
       res.redirect('/signup');
