@@ -37,3 +37,15 @@ module.exports.reflectionsByGoogleID = function(req, res) {
     res.json(reflections);
   });
 }
+
+module.exports.userByGoogleID = function(req, res) {
+  var googleID = req.query.googleID;
+  console.log("GoogleID: ", googleID);
+  queries.userByGoogleID(googleID, function(user) {
+    if (user!==null) {
+      res.json(user);
+    } else {
+      res.end();
+    }
+  });
+};

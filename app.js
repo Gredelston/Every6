@@ -53,6 +53,7 @@ app.get('/whatAmIReading'         , userInfo.whatAmIReading);
 app.get('/myReflections'          , userInfo.myReflections);
 app.get('/readingByGoogleID'      , userInfo.readingByGoogleID);
 app.get('/reflectionsByGoogleID'  , userInfo.reflectionsByGoogleID);
+app.get('/userByGoogleID'         , userInfo.userByGoogleID);
 
 // Authentication routes
 app.get('/auth/success'    , index.authSuccess);

@@ -1,0 +1,27 @@
+<li userID="{{this.user}}">
+  <a href="/reflection/{{this._id}}">{{this.title}}</a>
+  -- Submitted by
+  <a href="/user/{{this.user}}" id="{{this._id}}_name">username</a>
+  {{#if this.submitted}}
+    (<span id="{{this._id}}_submissionTime">
+      {{this.submissionTime}}
+    </span>)
+  {{/if}}
+</li>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    if ({{this.submitted}}) {
+      var d = new Date("{{this.submissionTime}}");
+      $("#{{this._id}}_submissionTime").html(
+        d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
+      );
+    }
+
+    $.get("userByGoogleID", {googleID: "{{this.user}}" }, function(user) {
+      $("#{{this._id}}_name").text(user.displayname);
+    });
+  });
+
+</script>
