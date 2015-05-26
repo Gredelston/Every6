@@ -6,6 +6,7 @@ var reflectionSchema = mongoose.Schema({
   title: String,
   author: String,
   text: String,
+  isPrivate: Boolean,
   submitted: Boolean,
   submissionTime: Date
 });

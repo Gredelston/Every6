@@ -15,9 +15,10 @@ module.exports.home = function(req, res) {
 module.exports.you = function(req, res) {
   if (isLoggedIn(req)) {
     queries.reflectionsByGoogleID(req.user.id, function(refs) {
-      console.log(refs);
-      res.render('you', {reflections: refs});
-    })
+      queries.readingByGoogleID(req.user.id, function(reading) {
+        res.render('you', {reflections: refs, reading: reading});
+      });
+    });
   } else {
     res.render('youLoggedOut');
   }
@@ -31,6 +32,10 @@ module.exports.about = function(req, res) {
   res.render('about');
 }
 
+module.exports.newReflection = function(req, res) {
+  res.render('/');
+}
+
 module.exports.signupPage = function(req, res) {
   if (!req.user) {
     res.redirect('/');
@@ -40,6 +45,44 @@ module.exports.signupPage = function(req, res) {
     firstName: req.user.name.givenName,
     email: req.user.emails[0].value});
 }
+
+module.exports.commit = function(req, res) {
+  res.render('commit');
+}
+
+module.exports.newReflection = function(req, res) {
+  res.render('newReflection');
+}
+
+module.exports.submitNewReflection = function(req, res) {
+  if (!req.user) {
+    res.error(500).send("Something went wrong! User not logged in");
+  }
+  // Create the reflection
+  var newReflection = new models.Reflection({
+    user:           req.user.id,
+    period:         getCurrentPeriod(),
+    title:          req.body.title,
+    author:         req.body.author,
+    text:           req.body.text,
+    isPrivate:      req.body.isPrivate,
+    submitted:      true,
+    submissionTime: new Date()
+  });
+  // Save + send
+  newReflection.save(function(err) {
+    if (err) {
+      res.error(500).send("Something went wrong! Could not save reflection");
+    } else {
+      // Also, update the user schema
+      models.User.findOneAndUpdate({googleID: req.user.id},
+        {$push: {reflections: newReflection._id}},
+        function(user) {
+          res.end("true");
+        }
+      );
+    }
+  });}
 
 module.exports.signupSuccess = function(req, res) {
   res.render('signupSuccess');

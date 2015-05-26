@@ -1,0 +1,48 @@
+<h1>Reflect.</h1>
+You've read your book. Great! But you're not done yet.
+<br>
+This is the important part. Think about the book as it pertains to your life.
+<br><br>
+How does it relate to what you do? Or how you think? Or how you see others?
+<br>
+Why did you choose this book? Are you glad you did? Does it belong on your shelf?
+<br><br>
+Your reflection is yours, and can take whatever form you feel is appropriate.
+<br>
+It can be however formal you want. But please, do reflect.
+<br><br>
+
+<form id="reflectionForm">
+<input type="text"  id="reflection-form-title" name="reflection-title" placeholder="Book title" required>
+<br>
+<input type="text"  id="reflection-form-author" name="reflection-author" placeholder="Author" required>
+<br>
+<textarea type="text"  id="reflection-form-text" name="reflection-text" rows="20" cols="70" placeholder="Reflect. Write as much or as little as you need." required></textarea>
+<br>
+Private?
+<input type="checkbox"  id="reflection-form-private" name="reflection-private">
+<br>
+<input type="submit"  id="reflection-form-submit" name="reflection-submit">
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#reflectionForm').submit(function(event) {
+      event.preventDefault();
+      
+      var title = $('#reflection-form-title')[0].value.trim();
+      var author = $('#reflection-form-text')[0].value.trim();
+      var text = $('#reflection-form-text')[0].value.trim();
+      var isPrivate = $('#reflection-form-private')[0].checked;
+
+      $.post('/submitNewReflection', {
+        title: title,
+        author: author,
+        text: text,
+        isPrivate: isPrivate
+      }, function(data, status) {
+        window.location.href = "/you";
+      });
+    });
+  });
+</script>

@@ -1,7 +1,16 @@
 <div id="haveYouCommitted">
-  <h2>
-    It looks like you're not already reading something!
-  </h2>
+  {{#if reading}}
+    <h2>How are you liking {{reading}}?</h2>
+    If you're finished, <a href='/reflect'>reflect</a>!<br />
+    If you've changed books, feel free to 
+    <a href="/commit">change what you're reading</a>.<br />
+    Either way, be sure you've submitted a reflection by
+    <span id="endMonth"></span> 1!
+  {{else}}
+    <h2>What are you reading?</h2>
+    Pick a book, and <a href="/commit">tell us about it</a>!<br />
+    Then <a href="/reflect">submit</a>.
+  {{/if}}
 </div>
 
 <div id="yourPastReflections">
@@ -17,8 +26,17 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $.get("whatAmIReading", function(data) {
-      console.log("You are reading: ", data);
+    $.get("whatAmIReading", function(reading) {
+      if (reading) {
+        $("#haveYouCommitted").html()
+      }
     });
+
+    var month = new Date().getMonth();
+    if (month <= 4 || month == 11) {
+      $("#endMonth").text("June");
+    } else {
+      $("#endMonth").text("December");
+    }
   });
 </script>
