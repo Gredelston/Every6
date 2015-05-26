@@ -13,20 +13,32 @@ var transporter = nodemailer.createTransport({
 });
 
 var send = function(to, subject, htmlFile) {
-  var mailOptions = {
-    from: "Every 6 Months <every6months@gmail.com>",
-    to: to,
-    subject: subject,
-    text: htmltotext.fromString(html),
-    html: html
-  }
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      console.log(err);
+  // Open the HTML file containing the email
+  fs.readFile(htmlFile, {encoding: 'ascii'}, function(readErr, html) {
+    if (readErr) {
+      console.log("ERR: ", readErr);
     } else {
-      console.log("Message sent to " + to + ": " + info.response);
+      console.log("HTML: ", html);
+      // Set up the email info -- to, from, subject, text
+      var mailOptions = {
+        from: "Every 6 Months <every6months@gmail.com>",
+        to: to,
+        subject: subject,
+        text: htmltotext.fromString(html),
+        html: html
+      }
+
+      // Scan it, send it, fax-rename it.
+      transporter.sendMail(mailOptions, function(sendErr, info) {
+        if (sendErr) {
+          console.log("Error sending message: " + sendErr);
+          console.log("ERRORISNULL: ", sendErr===null);
+        } else {
+          console.log("Message sent to " + to + ": " + info.response);
+        }
+      });
     }
-  });
+  })
 }
 
 module.exports = send;
