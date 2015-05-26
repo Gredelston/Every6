@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var htmltotext = require('html-to-text');
 var authUser   = "every6months@gmail.com";
 var authPass   = process.env.EVERY6_GMAIL_PW;
 
@@ -10,18 +11,21 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var mailOptions = {
-  from: "Fred Foo ✔ <foo@blurdybloop.com>",
-  to: 'gredelston@gmail.com, greg@foobo.io', // list of receivers 
-  subject: 'Test1 ✔', // Subject line 
-  text: 'Stalling 2 ✔', // plaintext body 
-  html: '<b>Purl 3 ✔</b>' // html body 
-};
-
-transporter.sendMail(mailOptions, function(err, info) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Message sent: " + info.response);
+var send = function(to, subject, html) {
+  var mailOptions = {
+    from: "Every 6 Months <every6months@gmail.com>",
+    to: to,
+    subject: subject,
+    text: htmltotext.fromString(html),
+    html: html
   }
-});
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(err);
+    } else {
+      console.log("Message sent to " + to + ": " + info.response);
+    }
+  });
+}
+
+module.exports = send;
