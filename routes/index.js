@@ -24,6 +24,28 @@ module.exports.you = function(req, res) {
   }
 }
 
+module.exports.user = function(req, res) {
+  var googleID;
+  if (req.user && req.params.id == req.user.id) {
+    res.redirect("/you");
+  } else if (req.params.id) {
+    googleID = req.params.id;
+    models.User.findOne({googleID: googleID}, function(err, user) {
+      if (err) {
+        res.error(500).send("Something went wrong in querying the database!");
+      } else if (user) {
+        queries.reflectionsByGoogleID(googleID, function(reflections) {
+          res.render('userpage', {user: user, reflections: reflections});
+        });
+      } else {
+        res.render('viewUserError')
+      }
+    });
+  } else {
+    res.error(500).send("No ID found!");
+  }
+}
+
 module.exports.browse = function(req, res) {
   res.render('browse');
 }

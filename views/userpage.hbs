@@ -1,0 +1,21 @@
+<h1>{{user.displayname}}</h1>
+<div id="currentlyReading">
+  {{#if user.reading}}
+    <h2>{{user.firstname}} is currentely reading {{reading}}.</h2>
+    Ask them about it, or check back for their reflection!
+  {{else}}
+    <h2>{{user.firstname}} hasn't committed to a book.</h2>
+    Pester them, or suggest a book for them!
+  {{/if}}
+</div>
+
+<div id="pastReflections">
+  <h2>
+    {{user.firstname}}'s Previous Reflections
+  </h2>
+  <ul id="yourReflections">
+    {{#each reflections}}
+      {{> reflectionLink}}
+    {{/each}}
+  </ul>
+</div>

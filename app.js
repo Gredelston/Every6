@@ -40,6 +40,7 @@ app.get('/signupSuccess' , index.signupSuccess);
 app.get('/commit'        , index.commit);
 app.get('/reflect'       , index.newReflection);
 app.get('/reflection/:id', index.viewReflection);
+app.get('/user/:id'      , index.user);
 
 app.post('/submitNewReflection', index.submitNewReflection);
 
