@@ -1,8 +1,9 @@
 var nodemailer = require('nodemailer');
 var htmltotext = require('html-to-text');
+var fs         = require('fs');
+
 var authUser   = "every6months@gmail.com";
 var authPass   = process.env.EVERY6_GMAIL_PW;
-
 var transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -11,7 +12,7 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var send = function(to, subject, html) {
+var send = function(to, subject, htmlFile) {
   var mailOptions = {
     from: "Every 6 Months <every6months@gmail.com>",
     to: to,
