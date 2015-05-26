@@ -4,6 +4,10 @@ body {
 	background-color: #f1c40f;
 }
 
+#main-body {
+	margin: 2%;
+}
+
 /* FONTS */
 
 * {
