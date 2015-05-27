@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
   displayname: String,
   reading: String,
   email: String,
+  lastSubmittedPeriod: Number,
   reflections: [String]
 });
 

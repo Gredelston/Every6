@@ -100,13 +100,14 @@ module.exports.submitNewReflection = function(req, res) {
     } else {
       // Also, update the user schema
       models.User.findOneAndUpdate({googleID: req.user.id},
-        {$push: {reflections: newReflection._id}},
-        function(user) {
-          res.end("true");
-        }
+        {
+          $push: {reflections: newReflection._id},
+          $set: {lastSubmittedPeriod: getCurrentPeriod()}
+        }, function(user) { res.end("true"); }
       );
     }
-  });}
+  });
+}
 
 module.exports.signupSuccess = function(req, res) {
   res.render('signupSuccess');
