@@ -94,17 +94,22 @@ module.exports.submitNewReflection = function(req, res) {
     submitted:      true,
     submissionTime: new Date()
   });
+
   // Save + send
   newReflection.save(function(err) {
     if (err) {
       res.error(500).send("Something went wrong! Could not save reflection");
     } else {
-      // Also, update the user schema
+      // Update the user schema.
       models.User.findOneAndUpdate({googleID: req.user.id},
         {
           $push: {reflections: newReflection._id},
-          $set: {lastSubmittedPeriod: getCurrentPeriod()}
-        }, function(user) { res.end("true"); }
+          $set: {lastSubmittedPeriod: getCurrentPeriod() - 1}
+        }, function(err2, user) {
+          // Send a congratulatory email, because that's polite.
+          mailer.congrats(user.email);
+          res.end("true");
+        }
       );
     }
   });
@@ -191,6 +196,7 @@ module.exports.createUser = function(req, res) {
     displayname: req.user.displayName,
     email:       req.body.email,
     reading:     null,
+    lastSubmittedPeriod: -1,
     reflections:     []
   });
   // Save + send
