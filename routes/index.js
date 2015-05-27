@@ -232,7 +232,12 @@ module.exports.authSuccess = function(req, res) {
   queries.userByGoogleID(req.user.id,
     function(user) {
       console.log("Auth success, found user");
-      res.redirect(req.headers.referer);
+      if (req.headers.referer) {
+        console.log("REDIRECTING: " + req.headers.referer)
+        res.redirect(req.headers.referer);
+      } else {
+        res.redirect("/");
+      }
     }, function() {
       console.log("Auth success, found no user");
       res.redirect('/signup');
@@ -243,5 +248,5 @@ module.exports.authSuccess = function(req, res) {
 /* Callback for a failed Google authentication. */
 module.exports.authFailure = function(req, res) {
   console.log("Failed to authenticate user via Google OAuth2.");
-  res.redirect('req.headers.referer');
+  res.redirect(req.headers.referer);
 }
