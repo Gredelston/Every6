@@ -2,6 +2,7 @@ var url = require('url');
 var path = require('path');
 var models = require('../models/model-manager');
 var queries = require('../models/queries');
+var mailer = require('../email/mailer');
 
 var isLoggedIn = function(req) { return req.user; }
 
@@ -197,6 +198,8 @@ module.exports.createUser = function(req, res) {
     if (err) {
       res.error(500).send("Something went wrong! Could not save user");
     } else {
+      // Send them a welcome email, because that's the polite thing to do
+      mailer.welcome(newUser.email);
       res.end("true");
     }
   });
