@@ -1,4 +1,5 @@
-var send = require ('./email-config');
+var send = require('./email-config');
+var path = require('path');
 
 module.exports.welcome = function(to) {
   send(to, "Welcome to Every6!", path.join(__dirname, "welcome.html"));
@@ -31,12 +32,3 @@ module.exports.twoweeksleft = function(to) {
 module.exports.congrats = function(to) {
   send(to, "We got what you wrote!", path.join(__dirname,"congrats.html"));
 }
-
-module.exports.firstday1("greg@students.olin.edu");
-module.exports.welcome("greg@students.olin.edu");
-module.exports.day1("greg@students.olin.edu");
-module.exports.month2("greg@students.olin.edu");
-module.exports.month4("greg@students.olin.edu");
-module.exports.month6("greg@students.olin.edu");
-module.exports.twoweeksleft("greg@students.olin.edu");
-module.exports.congrats("greg@students.olin.edu");

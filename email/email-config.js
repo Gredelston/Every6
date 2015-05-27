@@ -18,7 +18,6 @@ var send = function(to, subject, htmlFile) {
     if (readErr) {
       console.log("ERR: ", readErr);
     } else {
-      console.log("HTML: ", html);
       // Set up the email info -- to, from, subject, text
       var mailOptions = {
         from: "Every 6 Months <every6months@gmail.com>",
