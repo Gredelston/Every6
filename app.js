@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
+var favicon = require('serve-favicon');
 
 var index  = require('./routes/index');
 var userInfo = require('./routes/userInfo');
@@ -24,10 +25,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-	secret: 'secret',
-	resave: false,
-	saveUninitialized: true
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
 }));
+app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')));
 
 setupGoogleAuth(app);
 emailScheduler.run();
