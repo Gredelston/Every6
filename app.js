@@ -10,6 +10,7 @@ var index  = require('./routes/index');
 var userInfo = require('./routes/userInfo');
 var models = require('./models/model-manager');
 var setupGoogleAuth = require('./routes/googleAuth');
+var emailScheduler = require('./email/scheduler');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(session({
 }));
 
 setupGoogleAuth(app);
+emailScheduler.run();
 
 // Navigation routes
 app.get('/'              , index.home);
