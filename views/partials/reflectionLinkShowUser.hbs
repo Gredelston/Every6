@@ -1,13 +1,18 @@
-<li userID="{{this.user}}">
-  <a href="/reflection/{{this._id}}">{{this.title}}</a>
-  -- Submitted by
-  <a href="/user/{{this.user}}" id="{{this._id}}_name">username</a>
-  {{#if this.submitted}}
+{{#if this.submitted}}
+  <li userID="{{this.user}}">
+    {{#if this.isPrivate}}
+      (private reflection)
+    {{else}}
+      <a href="/reflection/{{this._id}}">{{this.title}}</a>
+    {{/if}}
+    
+    -- Submitted by
+    <a href="/user/{{this.user}}" id="{{this._id}}_name">username</a>
     (<span id="{{this._id}}_submissionTime">
       {{this.submissionTime}}
     </span>)
-  {{/if}}
-</li>
+  </li>
+{{/if}}
 
 
 <script type="text/javascript">

@@ -1,8 +1,17 @@
 <h1>All Reflections</h1>
-Soon this will be sorted better.
-
 <ul>
   {{#each reflections}}
     {{>reflectionLinkShowUser}}
+  {{/each}}
+</ul>
+
+<h1>All Users</h1>
+<ul>
+  {{#each users}}
+    <li>
+      <a href="/user/{{this.googleID}}">
+        {{this.displayname}}
+      </a>
+    </li>
   {{/each}}
 </ul>

@@ -18,6 +18,12 @@ module.exports.userByGoogleID = function(googleID, successCallback, failCallback
   });
 };
 
+module.exports.allUsers = function(callback) {
+  models.User.find({}, function(err, users) {
+    callback(users);
+  });
+}
+
 /* GET route to return what a particular user is reading right now */
 module.exports.readingByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,

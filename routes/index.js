@@ -49,7 +49,9 @@ module.exports.user = function(req, res) {
 
 module.exports.browse = function(req, res) {
   models.Reflection.find({}, function(err, reflections) {
-    res.render('browse', {reflections: reflections});
+    queries.allUsers(function(users) {
+      res.render('browse', {reflections: reflections, users: users});
+    })
   })
 }
 
