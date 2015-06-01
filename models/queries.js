@@ -18,13 +18,14 @@ module.exports.userByGoogleID = function(googleID, successCallback, failCallback
   });
 };
 
+/* Find all users, and call back, passing in the array of user objs. */
 module.exports.allUsers = function(callback) {
   models.User.find({}, function(err, users) {
     callback(users);
   });
 }
 
-/* GET route to return what a particular user is reading right now */
+/* Find what a particular user is reading right now, and call back. */
 module.exports.readingByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
@@ -40,7 +41,6 @@ module.exports.readingByGoogleID = function(googleID, callback) {
  * Sort the reflections descendingly in order of time written,
  * so that the most recent reflection is at the front of the list.
  */
-
 module.exports.reflectionsByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,
     function(user) { // Successfully found user
@@ -52,6 +52,13 @@ module.exports.reflectionsByGoogleID = function(googleID, callback) {
       callback([]); // then frown.
     }
   );
+}
+
+/* Update a particular user's current "reading". */
+module.exports.updateReadingByGoogleID = function (gID, newReading, callback) {
+  var query = {googleID: gID};
+  var update = {reading: newReading};
+  models.User.findOneAndUpdate(query, update, callback);
 }
 
 /**

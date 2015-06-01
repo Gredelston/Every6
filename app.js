@@ -47,6 +47,7 @@ app.get('/reflection/:id', index.viewReflection);
 app.get('/user/:id'      , index.user);
 
 app.post('/submitNewReflection', index.submitNewReflection);
+app.put('/updateReading', userInfo.updateReading);
 
 app.get('/signup'        , index.signupPage);
 app.get('/validateEmail' , index.validateEmail)

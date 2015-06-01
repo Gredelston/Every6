@@ -7,10 +7,14 @@ var isLoggedIn = function(req) { return req.user; }
 
 /* GET route to return what the logged-in user is reading right now */
 module.exports.whatAmIReading = function(req, res) {
-  var googleID = req.user.id;
-  queries.readingByGoogleID(googleID, function(reading) {
-    res.json(reading);
-  });
+  if (req.user) {
+    var googleID = req.user.id;
+    queries.readingByGoogleID(googleID, function(reading) {
+      res.json(reading);
+    });
+  } else {
+    res.json(null);
+  }
 }
 
 /* GET route to return the logged-in user's previous reflections */
@@ -49,3 +53,16 @@ module.exports.userByGoogleID = function(req, res) {
     }
   });
 };
+
+/* PUT request to update what a particular user is reading. */
+module.exports.updateReading = function(req, res) {
+  if (req.user) {
+    var newTitle = req.body.newTitle;
+    console.log("PUT REQUEST RECEIVED: " + newTitle);
+    queries.updateReadingByGoogleID(req.user.id, newTitle, function() {
+      res.end();
+    })
+  } else {
+    res.end();
+  }
+}

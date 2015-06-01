@@ -74,7 +74,13 @@ module.exports.signupPage = function(req, res) {
 }
 
 module.exports.commit = function(req, res) {
-  res.render('commit');
+  if (req.user) {
+    queries.readingByGoogleID(req.user.id, function(reading) {
+      res.render('commit', {reading: reading});
+    });
+  } else {
+    res.redirect('/');
+  }
 }
 
 module.exports.newReflection = function(req, res) {

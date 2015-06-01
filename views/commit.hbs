@@ -1,1 +1,34 @@
-Coming soon!
+<h1>What are you reading?</h1>
+
+Tell us what you're reading! We'd love to hear.<br>
+It's good to pick a book early -- that way you might actually get started reading it.
+<br><br>
+This isn't a binding commitment. You can change at any time.<br>
+But it's still good to have that soft commitment from you.
+
+<form id="commitForm">
+  <input type="text" id="commitForm-title" name="commit-title"
+    {{#if reading}}
+      placeholder="{{reading}}"
+    {{/if}}
+  >
+  <input type="submit" id="commitForm-submit" name="commit-submit">
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#commitForm").submit(function(event) {
+      event.preventDefault();
+
+      var newTitle = $('#commitForm-title')[0].value.trim();
+
+      $.ajax({
+        type: "PUT",
+        url: "/updateReading",
+        data: {newTitle: newTitle}
+      }).done(function(data) {
+        window.location.href = "/you";
+      });
+    });
+  });
+</script>
