@@ -9,6 +9,9 @@
       <a href="/user/{{this.googleID}}">
         {{this.displayname}}
       </a>
+      {{#if this.reading}}
+        (Currently reading: {{this.reading}})
+      {{/if}}
     </li>
   {{/each}}
 </ul>
