@@ -12,7 +12,6 @@ Every6 is a platform to facilitate that.
 This site is under a lot of development right now. There are a lot of bugs I want fixed, and a lot of features I want implemented. I will happily accept pull requests. Here are some things on my bug/feature wish list, in no particular order.
 
 - Make it not ugly
-- See what your friends are reading
 - Settings page -- change your email, display name, etc.
 - Delete your account
 - Confirm your email so you can't get signed up by someone else
@@ -20,7 +19,7 @@ This site is under a lot of development right now. There are a lot of bugs I wan
 - Comment on reflections
 - Sign up for a notifying email when a particular user has submitted a reflection
 - Send a digest email at the end of each period containing what everyone read, and links to their reflections
-- Currently all user stuff is tied to your Google User ID, rather than your Mongo _id. That's silly and confusing. Fix that. (Probably involves actually storing anything in sessions, which I'm currently not.)
+- Currently all user stuff is tied to your Google User ID, rather than your Mongo doc _id. That's silly and confusing. Fix that. (Probably involves actually storing anything in sessions, which I'm currently not.)
 - Middleware to prevent you from reaching certain pages (e.g. submit a reflection) when logged out
 - Bug: You can be signed in on Google but not have created an account. Put some middleware to prevent that
 - Olin authentication? To prevent randos

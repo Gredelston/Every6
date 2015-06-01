@@ -20,9 +20,12 @@ module.exports.userByGoogleID = function(googleID, successCallback, failCallback
 
 /* Find all users, and call back, passing in the array of user objs. */
 module.exports.allUsers = function(callback) {
-  models.User.find({}, function(err, users) {
-    callback(users);
-  });
+  models.User
+    .find({})
+    .sort({lastname: 'asc'})
+    .exec(function(err, users) {
+      callback(users);
+    });
 }
 
 /* Find what a particular user is reading right now, and call back. */
