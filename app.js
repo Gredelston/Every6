@@ -59,6 +59,9 @@ app.get('/myReflections'          , userInfo.myReflections);
 app.get('/readingByGoogleID'      , userInfo.readingByGoogleID);
 app.get('/reflectionsByGoogleID'  , userInfo.reflectionsByGoogleID);
 app.get('/userByGoogleID'         , userInfo.userByGoogleID);
+app.get('/allReflections'         , userInfo.allReflections);
+
+app.get('/renderReflectionLink'   , index.renderReflectionLink);
 
 // Authentication routes
 app.get('/auth/success'    , index.authSuccess);

@@ -28,6 +28,15 @@ module.exports.allUsers = function(callback) {
     });
 }
 
+/* Find all reflections and call back, passing in the array of refl objs */
+module.exports.allReflections = function(callback) {
+  models.Reflection
+    .find({})
+    .exec(function(err, reflections) {
+      callback(reflections);
+    });
+}
+
 /* Find what a particular user is reading right now, and call back. */
 module.exports.readingByGoogleID = function(googleID, callback) {
   module.exports.userByGoogleID(googleID,

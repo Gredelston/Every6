@@ -1,9 +1,6 @@
-<h1>All Reflections</h1>
-<ul>
-  {{#each reflections}}
-    {{>reflectionLinkShowUser}}
-  {{/each}}
-</ul>
+<div id="allReflections">
+  <h1>All Reflections</h1>
+</div>
 
 <h1>All Users</h1>
 <ul>
@@ -12,9 +9,35 @@
       <a href="/user/{{this.googleID}}">
         {{this.displayname}}
       </a>
-      {{#if this.reading}}
-        (Currently reading: {{this.reading}})
-      {{/if}}
     </li>
   {{/each}}
 </ul>
+
+<script type="text/javascript">
+  /* Borrowed from routes/index.js */
+  var getCurrentPeriod = function() {
+    var date = new Date();
+    var period = (date.getYear() - 115) * 2;  // Two periods per year since 2015.
+    if (5 <= date.getMonth() && date.getMonth() <= 10) { // If it's fall,
+      period += 1; // then we are one period ahead.
+    } else if (date.getMonth() == 11) { // If it's December
+      period += 2; // then we are two periods ahead.
+    }
+    return period;
+  }
+
+  for (var i = getCurrentPeriod(); i >= 0; i--) {
+    var ulID = "period" + String(i);
+    $("#allReflections").append('<h2>Period '+i+'</h2><ul id='+ulID+'></ul>');
+  };
+
+  $.get("/allReflections", function(reflections) {
+    reflections.forEach(function(refl) {
+      $.get("/renderReflectionLink", {refl: refl}, function(html) {
+        var ulID = "period" + String(refl.period);
+        $("#"+ulID).append(html)
+      })
+    })
+  })
+
+</script>

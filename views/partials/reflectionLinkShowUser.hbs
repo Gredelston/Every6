@@ -1,15 +1,15 @@
-{{#if this.submitted}}
-  <li userID="{{this.user}}">
-    {{#if this.isPrivate}}
+{{#if submitted}}
+  <li userID="{{user}}">
+    {{#if isPrivate}}
       (private reflection)
     {{else}}
-      <a href="/reflection/{{this._id}}">{{this.title}}</a>
+      <a href="/reflection/{{_id}}">{{title}}</a>
     {{/if}}
     
     -- Submitted by
-    <a href="/user/{{this.user}}" id="{{this._id}}_name">username</a>
-    (<span id="{{this._id}}_submissionTime">
-      {{this.submissionTime}}
+    <a href="/user/{{user}}" id="{{_id}}_name">username</a>
+    (<span id="{{_id}}_submissionTime">
+      {{submissionTime}}
     </span>)
   </li>
 {{/if}}
@@ -17,15 +17,15 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    if ({{this.submitted}}) {
-      var d = new Date("{{this.submissionTime}}");
-      $("#{{this._id}}_submissionTime").html(
+      if ({{submitted}}) {
+      var d = new Date("{{submissionTime}}");
+      $("#{{_id}}_submissionTime").html(
         d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
       );
     }
 
-    $.get("userByGoogleID", {googleID: "{{this.user}}" }, function(user) {
-      $("#{{this._id}}_name").text(user.displayname);
+    $.get("userByGoogleID", {googleID: "{{user}}" }, function(user) {
+      $("#{{_id}}_name").text(user.displayname);
     });
   });
 

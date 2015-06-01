@@ -34,7 +34,6 @@ This site is under a lot of development right now. There are a lot of bugs I wan
 - Middleware to prevent you from reaching certain pages (e.g. submit a reflection) when logged out
 - Bug: You can be signed in on Google but not have created an account. Put some middleware to prevent that
 - Olin authentication? To prevent randos
-- Sort the "Everyone Else" page by period
 
 If there are any other features you'd like to see, let me know. And definitely contribute to the project if you're so inclined -- many hands make light work.
 

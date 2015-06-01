@@ -152,6 +152,20 @@ module.exports.viewReflection = function(req, res) {
   }
 }
 
+/* GET request to render an <li> element providing a link to a reflection */
+module.exports.renderReflectionLink = function(req, res) {
+  var refl = req.query.refl;
+  // We have to be a little gross about passing in the reflection.
+  // For some reason it's not letting me pass through refl as a property,
+  // so instead we're just making refl the entire object passed through
+  // in order to convey all the encapsulated data.
+  // That means that we need to include layout = false in refl.
+  // Also, if isPrivate for some reason gets stringified, which sucks.
+  refl.layout = false;
+  if (refl.isPrivate=="false") {refl.isPrivate = ""}
+  res.render('partials/reflectionLinkShowUser', refl);
+}
+
 // Utility functions
 
 /**

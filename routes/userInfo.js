@@ -66,3 +66,9 @@ module.exports.updateReading = function(req, res) {
     res.end();
   }
 }
+
+module.exports.allReflections = function(req, res) {
+  queries.allReflections(function(reflections) {
+    res.json(reflections);
+  })
+}
